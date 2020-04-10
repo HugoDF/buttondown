@@ -1,5 +1,6 @@
 {
-  "private": true,
+  "name": "buttondown",
+  "version": "0.0.1",
   "scripts": {
     "lint": "xo .",
     "format": "xo . --fix"
