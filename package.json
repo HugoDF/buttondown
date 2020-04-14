@@ -1,6 +1,6 @@
 {
   "name": "buttondown",
-  "version": "0.0.4",
+  "version": "0.0.5-0",
   "source": "src/main.ts",
   "main": "dist/main.umd.js",
   "module": "dist/main.modern.module.js",
