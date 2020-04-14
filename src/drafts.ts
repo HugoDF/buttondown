@@ -1,8 +1,8 @@
 import client, {VERBS, RESOURCES} from './lib/client';
 
 interface DraftEditableFields {
-  readonly subject: string;
-  readonly body: string;
+  readonly subject?: string;
+  readonly body?: string;
 }
 
 interface DraftRecord extends DraftEditableFields {
