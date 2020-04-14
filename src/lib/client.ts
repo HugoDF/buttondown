@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 import got, {Got} from 'got';
-import {HTTPVerb, ResourceName, HTTPPayload, Versions} from './types';
+import {HTTPVerb, ResourceName, Versions, ClientPayload} from './types';
 
 const BASE_URL = 'https://api.buttondown.email';
 const DEFAULT_VERSION = 'v1';
@@ -11,12 +11,34 @@ const DEFAULT_HEADERS = {
   'User-Agent': 'buttondown;nodejs'
 };
 
-export const VERBS: {[key: string]: HTTPVerb} = {
+function createUrl(
+  resource: ResourceName,
+  version: Versions,
+  resourcePath = ''
+): string {
+  return resourcePath
+    ? `${BASE_URL}/${version}/${resource}/${resourcePath}`
+    : `${BASE_URL}/${version}/${resource}`;
+}
+
+export const VERBS: Record<string, HTTPVerb> = {
   GET: 'GET',
   POST: 'POST',
   PATH: 'PATCH',
   PUT: 'PUT',
   DELETE: 'DELETE'
+};
+
+export const RESOURCES: Record<string, ResourceName> = {
+  DRAFTS: 'drafts',
+  EMAILS: 'emails',
+  IMAGES: 'images',
+  NEWSLETTERS: 'newsletters',
+  PING: 'ping',
+  SCHEDULED_EMAILS: 'scheduled-emails',
+  SUBSCRIBERS: 'subscribers',
+  TAGS: 'tags',
+  UNSUBSCRIBERS: 'unsubscribers'
 };
 
 class Client {
@@ -47,16 +69,22 @@ class Client {
    *
    * @param verb - HTTP verb
    * @param resource - resource to request
-   * @param payload - (Optional) payload to send as request body
+   * @param payload - (Optional) payload to define, extra fields, eg. resource id, payload in body,
    */
   async request<T>(
     verb: HTTPVerb,
     resource: ResourceName,
-    payload?: HTTPPayload
+    {
+      resourcePath = '',
+      query = {},
+      payload,
+      version = DEFAULT_VERSION
+    }: ClientPayload = {}
   ): Promise<T> {
-    const url = createUrl(resource);
+    const url = createUrl(resource, version, resourcePath);
     try {
       const {body} = await this.got({
+        responseType: 'json',
         method: verb,
         url,
         headers: {
@@ -65,7 +93,7 @@ class Client {
         },
         timeout: this.timeout,
         json: payload,
-        responseType: 'json'
+        searchParams: query
       });
 
       return body as T;
@@ -77,13 +105,6 @@ class Client {
       throw error;
     }
   }
-}
-
-function createUrl(
-  resource: ResourceName,
-  version: Versions = DEFAULT_VERSION
-): string {
-  return `${BASE_URL}/${version}/${resource}`;
 }
 
 export default new Client();
