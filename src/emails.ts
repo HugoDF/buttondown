@@ -1,8 +1,8 @@
 import client, {VERBS, RESOURCES} from './lib/client';
 
 interface EmailCreateFields {
-  readonly included_tags?: Record<string, string>;
-  readonly excluded_tags?: Record<string, string>;
+  readonly included_tags?: string[];
+  readonly excluded_tags?: string[];
   readonly subject: string;
   readonly body: string;
 }
@@ -16,6 +16,7 @@ interface EmailRecord extends EmailCreateFields {
   readonly email_type?: string;
   readonly secondary_id?: number;
   readonly publish_date: string;
+  readonly slug?: string;
 }
 
 type EmailList = EmailRecord[];
