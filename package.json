@@ -5,6 +5,11 @@
   "main": "dist/main.umd.js",
   "module": "dist/main.modern.module.js",
   "unpkg": "dist/main.umd.js",
+  "keywords": [
+    "buttondown",
+    "buttondown-js",
+    "api-wrapper"
+  ],
   "files": [
     "dist/**.js*",
     "dist/src/**/*.ts"
@@ -21,6 +26,7 @@
     "esm": "^3.2.25",
     "microbundle": "^0.11.0",
     "nock": "^12.0.3",
+    "np": "^6.2.1",
     "xo": "^0.29.1"
   },
   "xo": {
