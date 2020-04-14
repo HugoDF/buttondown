@@ -1,6 +1,7 @@
 import client, {Client} from './lib/client';
 import ping from './ping';
 import * as drafts from './drafts';
+import * as emails from './emails';
 
 export default {
   // Kinda just exporting for tests :shrug:
@@ -10,5 +11,6 @@ export default {
     return client.setApiKey(apiKey);
   },
   drafts,
+  emails,
   ping
 };
