@@ -24,7 +24,7 @@ export async function create(fields: DraftEditableFields): Promise<void> {
 }
 
 export async function get(id: string): Promise<DraftRecord> {
-  return client.request<DraftRecord>(VERBS.get, RESOURCES.DRAFTS, {
+  return client.request<DraftRecord>(VERBS.GET, RESOURCES.DRAFTS, {
     resourcePath: id
   });
 }

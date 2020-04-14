@@ -113,3 +113,30 @@ test('drafts.create() - 400', async (t) => {
   t.is(error.method, 'POST');
   t.is(error.payload, draftCreatePayload);
 });
+
+test('drafts.get() - 200', async (t) => {
+  const draftGetResponse = {
+    id: 'draft-id',
+    subject: 'draft-subject',
+    body: 'draft-body',
+    creation_date: '2020-04',
+    modification_date: '2020-04'
+  };
+  nock('https://api.buttondown.email', nockOptions)
+    .get('/v1/drafts/draft-id')
+    .reply(200, draftGetResponse);
+  t.deepEqual(await buttondown.drafts.get('draft-id'), draftGetResponse);
+});
+
+test('drafts.get() - 404', async (t) => {
+  nock('https://api.buttondown.email', nockOptions)
+    .get('/v1/drafts/draft-id')
+    .reply(404, {});
+  const error = await t.throwsAsync(async () => {
+    await buttondown.drafts.get('draft-id');
+  });
+  t.is(error.message, 'Response code 404 (Not Found)');
+  t.is(error.url, 'https://api.buttondown.email/v1/drafts/draft-id');
+  t.is(error.method, 'GET');
+  t.is(error.payload, undefined);
+});
