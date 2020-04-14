@@ -23,6 +23,27 @@ JavaScript (Node.js) Buttondown API wrapper.
 - `yarn lint` will lint all of the files with [xo](https://github.com/xojs/xo)
 - `yarn format` will run lint with `--fix` option on all the examples files (and tests).
 
+## Partial generated TypeScript SDK using the OpenAPI schema
+
+> The auto-generated SDK contains TS errors, eg. _gen/services/SubscribersService.ts has `email` in the list twice, however it's useful to lift typings from
+
+To re-generate:
+
+1. Fetch the schema from the API docs
+```sh
+curl https://api.buttondown.email/v1/schema\?format\=openapi >> schema.json
+```
+2. Convert using [openapi-typescript-codegen](https://github.com/ferdikoomen/openapi-typescript-codegen)
+```sh
+npx openapi-typescript-codegen --input schema.json --output ./_gen
+```
+3. Keep only the `services` folder
+```sh
+rm -rf _gen/core _gen/index.ts _gen/models
+```
+
+
+
 ## LICENSE
 
 Code is licensed under the [MIT License](./LICENSE).

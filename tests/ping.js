@@ -7,7 +7,13 @@ const pingResponse = {};
 nock.disableNetConnect();
 
 test('ping() - 200', async (t) => {
-  nock('https://api.buttondown.email').get('/v1/ping').reply(200, pingResponse);
+  nock('https://api.buttondown.email', {
+    reqheaders: {
+      Authorization: 'Token super-secret-api-key'
+    }
+  })
+    .get('/v1/ping')
+    .reply(200, pingResponse);
 
   t.deepEqual(await buttondown.ping(), pingResponse);
 });
