@@ -23,7 +23,7 @@ JavaScript (Node.js) Buttondown API wrapper.
 - `yarn watch` runs build in watch mode with [microbundle](https://github.com/developit/microbundle)
 - `yarn lint` will lint all of the files with [xo](https://github.com/xojs/xo)
 - `yarn format` will run lint with `--fix` option on all the examples files (and tests).
-- `yarn` release, run clean, production build and release with `np`.
+- `yarn release`, run clean, production build and release with `np`.
 
 ## Partial generated TypeScript SDK using the OpenAPI schema
 
