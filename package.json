@@ -19,7 +19,8 @@
     "watch": "microbundle watch",
     "test": "ava",
     "lint": "xo src tests",
-    "format": "xo src tests --fix"
+    "format": "xo src tests --fix",
+    "release": "rm -rf dist && yarn build && np"
   },
   "devDependencies": {
     "ava": "^3.7.0",

@@ -12,6 +12,7 @@ JavaScript (Node.js) Buttondown API wrapper.
 1. Clone the repository
 2. Run `yarn` or `npm install` installs all required dependencies.
 3. Run `yarn build` to build from TypeScript to common JavaScript distribution formats.
+4. Run `yarn test` to run all tests :D.
 
 ## npm scripts
 
@@ -22,6 +23,7 @@ JavaScript (Node.js) Buttondown API wrapper.
 - `yarn watch` runs build in watch mode with [microbundle](https://github.com/developit/microbundle)
 - `yarn lint` will lint all of the files with [xo](https://github.com/xojs/xo)
 - `yarn format` will run lint with `--fix` option on all the examples files (and tests).
+- `yarn` release, run clean, production build and release with `np`.
 
 ## Partial generated TypeScript SDK using the OpenAPI schema
 
