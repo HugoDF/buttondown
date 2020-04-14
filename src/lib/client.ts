@@ -41,7 +41,7 @@ export const RESOURCES: Record<string, ResourceName> = {
   UNSUBSCRIBERS: 'unsubscribers'
 };
 
-class Client {
+export class Client {
   public timeout: number;
   private apiKey: string;
   private readonly got: Got;
@@ -101,6 +101,7 @@ class Client {
       // Attach useful error information
       error.url = url;
       error.method = verb;
+      error.query = query;
       error.payload = payload;
       throw error;
     }
