@@ -5,6 +5,10 @@
   "main": "dist/main.umd.js",
   "module": "dist/main.modern.module.js",
   "unpkg": "dist/main.umd.js",
+  "files": [
+    "dist/**.js*",
+    "dist/src/**/*.ts"
+  ],
   "scripts": {
     "build": "microbundle",
     "watch": "microbundle watch",
