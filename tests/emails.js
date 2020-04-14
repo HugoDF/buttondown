@@ -116,12 +116,15 @@ test('emails.create() - missing subject', async (t) => {
       body: 'email-body'
     });
   });
-  t.is(error.message, 'buttondown.email.create() - body and subject are required');
+  t.is(
+    error.message,
+    'buttondown.email.create() - body and subject are required'
+  );
   t.is(error.url, undefined);
   t.is(error.method, undefined);
   t.is(error.payload, undefined);
   t.is(error.query, undefined);
-})
+});
 
 test('emails.create() - missing body', async (t) => {
   const error = await t.throwsAsync(async () => {
@@ -129,12 +132,15 @@ test('emails.create() - missing body', async (t) => {
       subject: 'email-subject'
     });
   });
-  t.is(error.message, 'buttondown.email.create() - body and subject are required');
+  t.is(
+    error.message,
+    'buttondown.email.create() - body and subject are required'
+  );
   t.is(error.url, undefined);
   t.is(error.method, undefined);
   t.is(error.payload, undefined);
   t.is(error.query, undefined);
-})
+});
 
 test('emails.create() - 400', async (t) => {
   nock('https://api.buttondown.email', nockOptions)
