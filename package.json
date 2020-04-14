@@ -13,7 +13,6 @@
   },
   "devDependencies": {
     "microbundle": "^0.11.0",
-    "node-fetch": "^2.6.0",
     "xo": "^0.29.1"
   },
   "xo": {
@@ -21,5 +20,8 @@
     "space": true,
     "globals": []
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "got": "^10.7.0"
+  }
 }
