@@ -4,6 +4,8 @@ import * as drafts from './drafts';
 import * as emails from './emails';
 
 export default {
+  // @todo remove this
+  client,
   // Kinda just exporting for tests :shrug:
   Client,
   // Alias from client instance
