@@ -1,12 +1,20 @@
 {
   "name": "buttondown",
   "version": "0.0.1",
+  "source": "src/main.ts",
+  "main": "dist/main.umd.js",
+  "module": "dist/main.modern.module.js",
+  "unpkg": "dist/main.umd.js",
   "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch",
     "lint": "xo .",
     "format": "xo . --fix"
   },
   "devDependencies": {
-    "xo": "latest"
+    "microbundle": "^0.11.0",
+    "node-fetch": "^2.6.0",
+    "xo": "^0.29.1"
   },
   "xo": {
     "prettier": true,
