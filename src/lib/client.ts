@@ -29,16 +29,26 @@ export const VERBS: Record<string, HTTPVerb> = {
   DELETE: 'DELETE'
 };
 
+// Resources are aliased to singular as well as plural,
+// eg. RESOURCES.EMAIL and RESOURCES.EMAILS are equivalent.
 export const RESOURCES: Record<string, ResourceName> = {
   DRAFTS: 'drafts',
+  DRAFT: 'drafts',
   EMAILS: 'emails',
+  EMAIL: 'emails',
   IMAGES: 'images',
+  IMAGE: 'images',
   NEWSLETTERS: 'newsletters',
+  NEWSLETTER: 'newsletters',
   PING: 'ping',
   SCHEDULED_EMAILS: 'scheduled-emails',
+  SCHEDULED_EMAIL: 'scheduled-emails',
   SUBSCRIBERS: 'subscribers',
+  SUBSCRIBER: 'subscribers',
   TAGS: 'tags',
-  UNSUBSCRIBERS: 'unsubscribers'
+  TAG: 'tags',
+  UNSUBSCRIBERS: 'unsubscribers',
+  UNSUBSCRIBER: 'unsubscribers'
 };
 
 export class Client {
