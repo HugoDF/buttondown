@@ -49,5 +49,18 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
-  }
+  },
+  "description": "JavaScript (Node.js) Buttondown API wrapper.",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HugoDF/buttondown.git"
+  },
+  "author": "Hugo",
+  "bugs": {
+    "url": "https://github.com/HugoDF/buttondown/issues"
+  },
+  "homepage": "https://github.com/HugoDF/buttondown#readme"
 }
