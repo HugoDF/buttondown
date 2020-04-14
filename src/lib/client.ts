@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call */
-import got, {CancelableRequest, Response} from 'got';
+/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+import got, {Got} from 'got';
 import {HTTPVerb, ResourceName, HTTPPayload, Versions} from './types';
 
 const BASE_URL = 'https://api.buttondown.email';
@@ -22,9 +22,11 @@ export const VERBS: {[key: string]: HTTPVerb} = {
 class Client {
   public timeout: number;
   private apiKey: string;
+  private readonly got: Got;
 
-  constructor() {
+  constructor(g = got) {
     this.timeout = DEFAULT_TIMEOUT;
+    this.got = g;
   }
 
   /**
@@ -45,23 +47,35 @@ class Client {
    *
    * @param verb - HTTP verb
    * @param resource - resource to request
-   * @param payload - payload to send as request body
+   * @param payload - (Optional) payload to send as request body
    */
-  request(
+  async request<T>(
     verb: HTTPVerb,
     resource: ResourceName,
     payload?: HTTPPayload
-  ): CancelableRequest<Response<string>> {
-    return got({
-      method: verb,
-      url: createUrl(resource),
-      headers: {
-        ...DEFAULT_HEADERS,
-        Authorization: `Token ${this.apiKey}`
-      },
-      timeout: this.timeout,
-      json: payload
-    });
+  ): Promise<T> {
+    const url = createUrl(resource);
+    try {
+      const {body} = await this.got({
+        method: verb,
+        url,
+        headers: {
+          ...DEFAULT_HEADERS,
+          Authorization: `Token ${this.apiKey}`
+        },
+        timeout: this.timeout,
+        json: payload,
+        responseType: 'json'
+      });
+
+      return body as T;
+    } catch (error) {
+      // Attach useful error information
+      error.url = url;
+      error.method = verb;
+      error.payload = payload;
+      throw error;
+    }
   }
 }
 

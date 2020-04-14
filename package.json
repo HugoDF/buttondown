@@ -7,18 +7,27 @@
   "unpkg": "dist/main.umd.js",
   "scripts": {
     "build": "microbundle",
-    "dev": "microbundle watch",
-    "lint": "xo .",
-    "format": "xo . --fix"
+    "watch": "microbundle watch",
+    "test": "ava",
+    "lint": "xo src tests",
+    "format": "xo src tests --fix"
   },
   "devDependencies": {
+    "ava": "^3.7.0",
+    "esm": "^3.2.25",
     "microbundle": "^0.11.0",
+    "nock": "^12.0.3",
     "xo": "^0.29.1"
   },
   "xo": {
     "prettier": true,
     "space": true,
     "globals": []
+  },
+  "ava": {
+    "require": [
+      "esm"
+    ]
   },
   "license": "MIT",
   "dependencies": {
