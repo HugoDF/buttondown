@@ -27,6 +27,10 @@ export interface EmailCreateFields {
   readonly body: string;
 }
 
+export interface ScheduledEmailCreateFields extends EmailCreateFields {
+  readonly publish_date: string;
+}
+
 export interface EmailRecord extends EmailCreateFields {
   readonly id: string;
   readonly creation_date: string;

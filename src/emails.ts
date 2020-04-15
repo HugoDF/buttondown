@@ -1,6 +1,6 @@
 import client, {VERBS, RESOURCES} from './lib/client';
 import {validatePresence} from './lib/validate';
-import {EmailCreateFields, EmailRecord, EmailList} from './lib/types'
+import {EmailCreateFields, EmailRecord, EmailList} from './lib/types';
 
 const REQUIRED_FIELDS = ['subject', 'body'];
 

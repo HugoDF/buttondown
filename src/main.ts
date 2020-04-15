@@ -4,8 +4,8 @@ import * as drafts from './drafts';
 import * as emails from './emails';
 import * as images from './images';
 import * as newsletters from './newsletters';
-// Import * as scheduledEmails from './scheduled-emails';
-// import * as subscribers from './subscribers';
+import * as scheduledEmails from './scheduled-emails';
+// Import * as subscribers from './subscribers';
 // import * as tags from './tags';
 // import * as unsubscribers from './unsubscribers';
 
@@ -20,9 +20,9 @@ export default {
   emails,
   images,
   newsletters,
-  ping
-  // ScheduledEmails,
-  // subscribers,
+  ping,
+  scheduledEmails
+  // Subscribers,
   // tags,
   // unsubscribers
 };
