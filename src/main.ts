@@ -2,6 +2,7 @@ import client, {Client} from './lib/client';
 import ping from './ping';
 import * as drafts from './drafts';
 import * as emails from './emails';
+import * as images from './images';
 
 export default {
   // Kinda just exporting for tests :shrug:
@@ -12,5 +13,6 @@ export default {
   },
   drafts,
   emails,
+  images,
   ping
 };

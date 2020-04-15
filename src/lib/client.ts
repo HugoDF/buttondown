@@ -116,6 +116,16 @@ export class Client {
       throw error;
     }
   }
+
+  notImplemented<T>(
+    verb: HTTPVerb,
+    resource: ResourceName,
+    payload: ClientPayload = {}
+  ): T {
+    const error = new Error(`${verb} ${resource} - Not Implemented`) as any;
+    error.payload = payload;
+    throw error;
+  }
 }
 
 export default new Client();
