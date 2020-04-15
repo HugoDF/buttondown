@@ -1,15 +1,18 @@
-name: Node CI
+name: E2E Tests
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 jobs:
-  build:
+  e2e:
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [10.x, 12.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -21,11 +24,8 @@ jobs:
       run: yarn
       env:
         CI: true
-    - name: lint
-      run: yarn lint
+    - name: build & E2E tests
+      run: yarn build && yarn test:e2e
       env:
         CI: true
-    - name: build & test
-      run: yarn build && yarn test:unit
-      env:
-        CI: true
+        TEST_BUTTONDOWN_API_KEY: ${{ secrets.TEST_BUTTONDOWN_API_KEY }}
