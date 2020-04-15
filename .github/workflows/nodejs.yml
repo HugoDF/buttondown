@@ -1,9 +1,9 @@
-name: Node CI
+name: Build & test
 
 on: [push]
 
 jobs:
-  build:
+  lint_build_test:
 
     runs-on: ubuntu-latest
 
