@@ -24,7 +24,7 @@ function createUrl(
 export const VERBS: Record<string, HTTPVerb> = {
   GET: 'GET',
   POST: 'POST',
-  PATH: 'PATCH',
+  PATCH: 'PATCH',
   PUT: 'PUT',
   DELETE: 'DELETE'
 };

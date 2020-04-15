@@ -1,4 +1,5 @@
 import client, {VERBS, RESOURCES} from './lib/client';
+import {validatePresence} from './lib/validate';
 
 interface ImageCreateFields {
   readonly image: string;
@@ -22,9 +23,11 @@ export async function list(page = 1): Promise<ImageList> {
 }
 
 export async function create(fields: ImageCreateFields): Promise<void> {
-  if (REQUIRED_FIELDS.find((f) => !fields[f])) {
-    throw new Error('buttondown.image.create() - image is required');
-  }
+  validatePresence(
+    fields,
+    REQUIRED_FIELDS,
+    'buttondown.image.create() - image is required'
+  );
 
   return client.notImplemented<void>(VERBS.POST, RESOURCES.IMAGES, {
     payload: fields

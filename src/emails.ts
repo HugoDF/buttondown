@@ -1,4 +1,5 @@
 import client, {VERBS, RESOURCES} from './lib/client';
+import {validatePresence} from './lib/validate';
 
 interface EmailCreateFields {
   readonly included_tags?: string[];
@@ -28,11 +29,11 @@ export async function list(page = 1): Promise<EmailList> {
 }
 
 export async function create(fields: EmailCreateFields): Promise<void> {
-  if (REQUIRED_FIELDS.find((f) => !fields[f])) {
-    throw new Error(
-      'buttondown.email.create() - body and subject are required'
-    );
-  }
+  validatePresence(
+    fields,
+    REQUIRED_FIELDS,
+    'buttondown.emails.create() - body and subject are required'
+  );
 
   return client.request<void>(VERBS.POST, RESOURCES.EMAILS, {payload: fields});
 }

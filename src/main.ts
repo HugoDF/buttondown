@@ -3,6 +3,11 @@ import ping from './ping';
 import * as drafts from './drafts';
 import * as emails from './emails';
 import * as images from './images';
+import * as newsletters from './newsletters';
+// Import * as scheduledEmails from './scheduled-emails';
+// import * as subscribers from './subscribers';
+// import * as tags from './tags';
+// import * as unsubscribers from './unsubscribers';
 
 export default {
   // Kinda just exporting for tests :shrug:
@@ -14,5 +19,10 @@ export default {
   drafts,
   emails,
   images,
+  newsletters,
   ping
+  // ScheduledEmails,
+  // subscribers,
+  // tags,
+  // unsubscribers
 };
