@@ -26,13 +26,18 @@ const subscribersListPage1 = [
   }
 ];
 
+const subscribersListPage1Response = {
+  results: subscribersListPage1,
+  count: 1
+};
+
 test('subscribers.list() - no page - 200', async (t) => {
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/subscribers')
     .query({
       page: 1
     })
-    .reply(200, subscribersListPage1);
+    .reply(200, subscribersListPage1Response);
 
   t.deepEqual(await buttondown.subscribers.list(), subscribersListPage1);
 });
@@ -43,7 +48,7 @@ test('subscribers.list() - page 1 - 200', async (t) => {
     .query({
       page: 1
     })
-    .reply(200, subscribersListPage1);
+    .reply(200, subscribersListPage1Response);
   t.deepEqual(await buttondown.subscribers.list(1), subscribersListPage1);
 });
 
@@ -62,12 +67,16 @@ test('subscribers.list() - page 2 - 200', async (t) => {
       utm_source: 'utm_campaign'
     }
   ];
+  const subscribersListPage2Response = {
+    results: subscribersListPage2,
+    count: 1
+  };
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/subscribers')
     .query({
       page: 2
     })
-    .reply(200, subscribersListPage2);
+    .reply(200, subscribersListPage2Response);
   t.deepEqual(await buttondown.subscribers.list(2), subscribersListPage2);
 });
 
@@ -78,7 +87,7 @@ test('subscribers.list() - query params filtering - 200', async (t) => {
       page: 1,
       email: 'justin@buttondown.email'
     })
-    .reply(200, subscribersListPage1);
+    .reply(200, subscribersListPage1Response);
   t.deepEqual(
     await buttondown.subscribers.list(1, {email: 'justin@buttondown.email'}),
     subscribersListPage1
