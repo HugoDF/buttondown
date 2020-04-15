@@ -1,26 +1,8 @@
 import client, {VERBS, RESOURCES} from './lib/client';
 import {validatePresence} from './lib/validate';
-
-interface EmailCreateFields {
-  readonly included_tags?: string[];
-  readonly excluded_tags?: string[];
-  readonly subject: string;
-  readonly body: string;
-}
+import {EmailCreateFields, EmailRecord, EmailList} from './lib/types';
 
 const REQUIRED_FIELDS = ['subject', 'body'];
-
-interface EmailRecord extends EmailCreateFields {
-  readonly id: string;
-  readonly creation_date: string;
-  readonly modification_date: string;
-  readonly email_type?: string;
-  readonly secondary_id?: number;
-  readonly publish_date: string;
-  readonly slug?: string;
-}
-
-type EmailList = EmailRecord[];
 
 export async function list(page = 1): Promise<EmailList> {
   return client.request<EmailList>(VERBS.GET, RESOURCES.EMAILS, {
@@ -39,6 +21,10 @@ export async function create(fields: EmailCreateFields): Promise<void> {
 }
 
 export async function get(id: string): Promise<EmailRecord> {
+  if (!id) {
+    throw new Error('buttondown.emails.get() - id is required');
+  }
+
   return client.request<EmailRecord>(VERBS.GET, RESOURCES.EMAILS, {
     resourcePath: id
   });

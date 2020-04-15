@@ -128,6 +128,17 @@ test('drafts.get() - 200', async (t) => {
   t.deepEqual(await buttondown.drafts.get('draft-id'), draftGetResponse);
 });
 
+test('drafts.get() - missing id', async (t) => {
+  const error = await t.throwsAsync(async () => {
+    await buttondown.drafts.get();
+  });
+
+  t.is(error.message, 'buttondown.drafts.get() - id is required');
+  t.is(error.url, undefined);
+  t.is(error.method, undefined);
+  t.is(error.payload, undefined);
+});
+
 test('drafts.get() - 404', async (t) => {
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/drafts/draft-id')

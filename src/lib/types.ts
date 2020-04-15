@@ -19,3 +19,26 @@ export interface ClientPayload {
   readonly payload?: HTTPPayload;
   readonly version?: Versions;
 }
+
+export interface EmailCreateFields {
+  readonly included_tags?: string[];
+  readonly excluded_tags?: string[];
+  readonly subject: string;
+  readonly body: string;
+}
+
+export interface ScheduledEmailCreateFields extends EmailCreateFields {
+  readonly publish_date: string;
+}
+
+export interface EmailRecord extends EmailCreateFields {
+  readonly id: string;
+  readonly creation_date: string;
+  readonly modification_date: string;
+  readonly email_type?: string;
+  readonly secondary_id?: number;
+  readonly publish_date: string;
+  readonly slug?: string;
+}
+
+export type EmailList = EmailRecord[];
