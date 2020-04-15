@@ -12,24 +12,24 @@ const nockOptions = {
 };
 
 const subscribersListPage1 = [
-    {
-      creation_date: '2020-04',
-      id: 'some-id',
-      metadata: {},
-      secondary_id: 1,
-      subscriber_type: 'regular',
-      source: 'string',
-      tags: ['tag1', 'tag2'],
-      utm_campaign: 'utm_campaign',
-      utm_medium: 'utm_campaign',
-      utm_source: 'utm_campaign'
-    }
-  ];
+  {
+    creation_date: '2020-04',
+    id: 'some-id',
+    metadata: {},
+    secondary_id: 1,
+    subscriber_type: 'regular',
+    source: 'string',
+    tags: ['tag1', 'tag2'],
+    utm_campaign: 'utm_campaign',
+    utm_medium: 'utm_campaign',
+    utm_source: 'utm_campaign'
+  }
+];
 
 const subscribersListPage1Response = {
   results: subscribersListPage1,
   count: 1
-}
+};
 
 test('subscribers.list() - no page - 200', async (t) => {
   nock('https://api.buttondown.email', nockOptions)
@@ -70,7 +70,7 @@ test('subscribers.list() - page 2 - 200', async (t) => {
   const subscribersListPage2Response = {
     results: subscribersListPage2,
     count: 1
-  }
+  };
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/subscribers')
     .query({

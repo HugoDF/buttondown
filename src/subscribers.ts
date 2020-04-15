@@ -45,12 +45,16 @@ export async function list(
   page = 1,
   query: SubscriberQueryFilters = {}
 ): Promise<SubscriberList> {
-  const { results } = await client.request<ViewSetResponse<SubscriberRecord>>(VERBS.GET, RESOURCES.SUBSCRIBERS, {
-    query: {
-      ...query,
-      page
+  const {results} = await client.request<ViewSetResponse<SubscriberRecord>>(
+    VERBS.GET,
+    RESOURCES.SUBSCRIBERS,
+    {
+      query: {
+        ...query,
+        page
+      }
     }
-  });
+  );
   return results;
 }
 
