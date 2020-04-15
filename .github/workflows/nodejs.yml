@@ -1,15 +1,15 @@
-name: Node CI
+name: Build & test
 
 on: [push]
 
 jobs:
-  build:
+  lint_build_test:
 
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [10.x, 12.x]
 
     steps:
     - uses: actions/checkout@v1
