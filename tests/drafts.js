@@ -23,8 +23,8 @@ const draftsListPage1 = [
 
 const draftsListPage1Response = {
   results: draftsListPage1,
-  count: 1,
-}
+  count: 1
+};
 
 test('drafts.list() - no page - 200', async (t) => {
   nock('https://api.buttondown.email', nockOptions)
@@ -59,8 +59,8 @@ test('drafts.list() - page 2 - 200', async (t) => {
   ];
   const draftsListPage2Response = {
     results: draftsListPage2,
-    count: 1,
-  }
+    count: 1
+  };
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/drafts')
     .query({

@@ -21,7 +21,7 @@ test('drafts.list()', async (t) => {
     return t.pass('No API key, skipping integration test');
   const drafts = await buttondown.drafts.list();
   t.true(Array.isArray(drafts));
-})
+});
 
 test('ping()', async (t) => {
   if (!process.env.TEST_BUTTONDOWN_API_KEY)
@@ -39,4 +39,4 @@ test('subscribers.list() & subscribers.get()', async (t) => {
   const id = subscribers[0].id;
   const subscriber = await buttondown.subscribers.get(id);
   t.snapshot(Object.keys(subscriber));
-})
+});

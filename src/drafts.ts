@@ -15,9 +15,13 @@ interface DraftRecord extends DraftEditableFields {
 type DraftList = DraftRecord[];
 
 export async function list(page = 1): Promise<DraftList> {
-  const {results} = await client.request<ViewSetResponse<DraftRecord>>(VERBS.GET, RESOURCES.DRAFTS, {
-    query: {page}
-  });
+  const {results} = await client.request<ViewSetResponse<DraftRecord>>(
+    VERBS.GET,
+    RESOURCES.DRAFTS,
+    {
+      query: {page}
+    }
+  );
   return results;
 }
 
