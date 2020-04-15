@@ -13,11 +13,16 @@ const nockOptions = {
 
 const subscribersListPage1 = [
   {
-    username: 'username',
-    name: 'name',
-    description: 'description',
     creation_date: '2020-04',
-    api_key: 'aaaa-bbbb-cccc-dddd'
+    id: 'some-id',
+    metadata: {},
+    secondary_id: 1,
+    subscriber_type: 'regular',
+    source: 'string',
+    tags: ['tag1', 'tag2'],
+    utm_campaign: 'utm_campaign',
+    utm_medium: 'utm_campaign',
+    utm_source: 'utm_campaign'
   }
 ];
 
@@ -45,11 +50,16 @@ test('subscribers.list() - page 1 - 200', async (t) => {
 test('subscribers.list() - page 2 - 200', async (t) => {
   const subscribersListPage2 = [
     {
-      username: 'username-page-2',
-      name: 'name',
-      description: 'description',
       creation_date: '2020-04',
-      api_key: 'aaaa-bbbb-cccc-dddd'
+      id: 'page-2-id',
+      metadata: {},
+      secondary_id: 1,
+      subscriber_type: 'regular',
+      source: 'string',
+      tags: ['tag1', 'tag2'],
+      utm_campaign: 'utm_campaign',
+      utm_medium: 'utm_campaign',
+      utm_source: 'utm_campaign'
     }
   ];
   nock('https://api.buttondown.email', nockOptions)
@@ -59,6 +69,20 @@ test('subscribers.list() - page 2 - 200', async (t) => {
     })
     .reply(200, subscribersListPage2);
   t.deepEqual(await buttondown.subscribers.list(2), subscribersListPage2);
+});
+
+test('subscribers.list() - query params filtering - 200', async (t) => {
+  nock('https://api.buttondown.email', nockOptions)
+    .get('/v1/subscribers')
+    .query({
+      page: 1,
+      email: 'justin@buttondown.email'
+    })
+    .reply(200, subscribersListPage1);
+  t.deepEqual(
+    await buttondown.subscribers.list(1, {email: 'justin@buttondown.email'}),
+    subscribersListPage1
+  );
 });
 
 test('subscribers.list() - 401 - error', async (t) => {
@@ -80,73 +104,36 @@ test('subscribers.list() - 401 - error', async (t) => {
 });
 
 const subscriberCreate = {
-  username: 'username',
-  name: 'name',
-  description: 'description'
+  email: 'email'
 };
 
 test('subscribers.create() - 200', async (t) => {
-  const emailCreateResponse = {
-    username: 'username',
-    name: 'name',
-    description: 'description',
+  const subscriberCreateResponse = {
     creation_date: '2020-04',
-    api_key: 'aaaa-bbbb-cccc-dddd'
+    id: 'some-id',
+    metadata: {},
+    secondary_id: 1,
+    subscriber_type: 'regular',
+    source: 'string',
+    tags: ['tag1', 'tag2'],
+    utm_campaign: 'utm_campaign',
+    utm_medium: 'utm_campaign',
+    utm_source: 'utm_campaign'
   };
   nock('https://api.buttondown.email', nockOptions)
     .post('/v1/subscribers', subscriberCreate)
-    .reply(200, emailCreateResponse);
+    .reply(200, subscriberCreateResponse);
   t.deepEqual(
     await buttondown.subscribers.create(subscriberCreate),
-    emailCreateResponse
+    subscriberCreateResponse
   );
 });
 
-test('subscribers.create() - missing username', async (t) => {
+test('subscribers.create() - missing email', async (t) => {
   const error = await t.throwsAsync(async () => {
-    await buttondown.subscribers.create({
-      name: 'name',
-      description: 'description'
-    });
+    await buttondown.subscribers.create({});
   });
-  t.is(
-    error.message,
-    'buttondown.subscribers.create() - username, name and description are required'
-  );
-  t.is(error.url, undefined);
-  t.is(error.method, undefined);
-  t.is(error.payload, undefined);
-  t.is(error.query, undefined);
-});
-
-test('subscribers.create() - missing description', async (t) => {
-  const error = await t.throwsAsync(async () => {
-    await buttondown.subscribers.create({
-      username: 'username',
-      name: 'name'
-    });
-  });
-  t.is(
-    error.message,
-    'buttondown.subscribers.create() - username, name and description are required'
-  );
-  t.is(error.url, undefined);
-  t.is(error.method, undefined);
-  t.is(error.payload, undefined);
-  t.is(error.query, undefined);
-});
-
-test('subscribers.create() - missing name', async (t) => {
-  const error = await t.throwsAsync(async () => {
-    await buttondown.subscribers.create({
-      username: 'username',
-      description: 'description'
-    });
-  });
-  t.is(
-    error.message,
-    'buttondown.subscribers.create() - username, name and description are required'
-  );
+  t.is(error.message, 'buttondown.subscribers.create() - email is required');
   t.is(error.url, undefined);
   t.is(error.method, undefined);
   t.is(error.payload, undefined);
@@ -168,11 +155,16 @@ test('subscribers.create() - 400', async (t) => {
 
 test('subscribers.get() - 200', async (t) => {
   const subscriberGetResponse = {
-    username: 'username',
-    name: 'name',
-    description: 'description',
     creation_date: '2020-04',
-    api_key: 'aaaa-bbbb-cccc-dddd'
+    id: 'some-id',
+    metadata: {},
+    secondary_id: 1,
+    subscriber_type: 'regular',
+    source: 'string',
+    tags: ['tag1', 'tag2'],
+    utm_campaign: 'utm_campaign',
+    utm_medium: 'utm_campaign',
+    utm_source: 'utm_campaign'
   };
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/subscribers/subscriber-id')
@@ -212,19 +204,24 @@ const subscriberPut = {
 };
 
 test('subscribers.put() - 200', async (t) => {
-  const emailPutResponse = {
-    username: 'username',
-    name: 'name',
-    description: 'description',
+  const subscriberPutResponse = {
     creation_date: '2020-04',
-    api_key: 'aaaa-bbbb-cccc-dddd'
+    id: 'some-id',
+    metadata: {},
+    secondary_id: 1,
+    subscriber_type: 'regular',
+    source: 'string',
+    tags: ['tag1', 'tag2'],
+    utm_campaign: 'utm_campaign',
+    utm_medium: 'utm_campaign',
+    utm_source: 'utm_campaign'
   };
   nock('https://api.buttondown.email', nockOptions)
     .put('/v1/subscribers/subscriber-id', subscriberPut)
-    .reply(200, emailPutResponse);
+    .reply(200, subscriberPutResponse);
   t.deepEqual(
     await buttondown.subscribers.put('subscriber-id', subscriberPut),
-    emailPutResponse
+    subscriberPutResponse
   );
 });
 
@@ -239,51 +236,11 @@ test('subscribers.put() - missing id', async (t) => {
   t.is(error.payload, undefined);
 });
 
-test('subscribers.put() - missing username', async (t) => {
+test('subscribers.put() - missing email', async (t) => {
   const error = await t.throwsAsync(async () => {
-    await buttondown.subscribers.put('subscriber-id', {
-      name: 'name',
-      description: 'description'
-    });
+    await buttondown.subscribers.put('subscriber-id', {});
   });
-  t.is(
-    error.message,
-    'buttondown.subscribers.put() - username, name and description are required'
-  );
-  t.is(error.url, undefined);
-  t.is(error.method, undefined);
-  t.is(error.payload, undefined);
-  t.is(error.query, undefined);
-});
-
-test('subscribers.put() - missing description', async (t) => {
-  const error = await t.throwsAsync(async () => {
-    await buttondown.subscribers.put('subscriber-id', {
-      username: 'username',
-      name: 'name'
-    });
-  });
-  t.is(
-    error.message,
-    'buttondown.subscribers.put() - username, name and description are required'
-  );
-  t.is(error.url, undefined);
-  t.is(error.method, undefined);
-  t.is(error.payload, undefined);
-  t.is(error.query, undefined);
-});
-
-test('subscribers.put() - missing name', async (t) => {
-  const error = await t.throwsAsync(async () => {
-    await buttondown.subscribers.put('subscriber-id', {
-      username: 'username',
-      description: 'description'
-    });
-  });
-  t.is(
-    error.message,
-    'buttondown.subscribers.put() - username, name and description are required'
-  );
+  t.is(error.message, 'buttondown.subscribers.put() - email is required');
   t.is(error.url, undefined);
   t.is(error.method, undefined);
   t.is(error.payload, undefined);
@@ -304,23 +261,28 @@ test('subscribers.put() - 400', async (t) => {
 });
 
 const subscriberPatch = {
-  username: 'new-username'
+  email: 'email'
 };
 
 test('subscribers.patch() - 200', async (t) => {
-  const emailPutResponse = {
-    username: 'new-username',
-    name: 'name',
-    description: 'description',
+  const subscriberPatchResponse = {
     creation_date: '2020-04',
-    api_key: 'aaaa-bbbb-cccc-dddd'
+    id: 'some-id',
+    metadata: {},
+    secondary_id: 1,
+    subscriber_type: 'regular',
+    source: 'string',
+    tags: ['tag1', 'tag2'],
+    utm_campaign: 'utm_campaign',
+    utm_medium: 'utm_campaign',
+    utm_source: 'utm_campaign'
   };
   nock('https://api.buttondown.email', nockOptions)
     .patch('/v1/subscribers/subscriber-id', subscriberPatch)
-    .reply(200, emailPutResponse);
+    .reply(200, subscriberPatchResponse);
   t.deepEqual(
     await buttondown.subscribers.patch('subscriber-id', subscriberPatch),
-    emailPutResponse
+    subscriberPatchResponse
   );
 });
 

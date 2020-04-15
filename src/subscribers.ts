@@ -35,8 +35,8 @@ type SubscriberList = SubscriberRecord[];
 const REQUIRED_FIELDS = ['email'];
 
 export async function list(
-  query: SubscriberQueryFilters = {},
-  page = 1
+  page = 1,
+  query: SubscriberQueryFilters = {}
 ): Promise<SubscriberList> {
   return client.request<SubscriberList>(VERBS.GET, RESOURCES.SUBSCRIBERS, {
     query: {
@@ -96,7 +96,7 @@ export async function patch(
 
   validateNonEmptyObject(
     fields,
-    "buttondown.subscribers.patch() - can't patch subscribers to {}"
+    "buttondown.subscribers.patch() - can't patch subscriber to {}"
   );
   return client.request<SubscriberRecord>(VERBS.PATCH, RESOURCES.SUBSCRIBERS, {
     resourcePath: id,
