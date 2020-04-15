@@ -1,6 +1,8 @@
 # Buttondown
 
-JavaScript (Node.js) Buttondown API wrapper.
+![E2E Tests](https://github.com/HugoDF/buttondown/workflows/E2E%20Tests/badge.svg) ![Build](https://github.com/HugoDF/buttondown/workflows/Build%20&%20test/badge.svg)
+
+JavaScript (Node.js) [Buttondown](https://buttondown.email) API wrapper.
 
 ## Requirements
 
