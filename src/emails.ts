@@ -21,6 +21,9 @@ export async function create(fields: EmailCreateFields): Promise<void> {
 }
 
 export async function get(id: string): Promise<EmailRecord> {
+  if (!id) {
+    throw new Error('buttondown.emails.get() - id is required')
+  }
   return client.request<EmailRecord>(VERBS.GET, RESOURCES.EMAILS, {
     resourcePath: id
   });

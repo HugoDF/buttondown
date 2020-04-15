@@ -34,6 +34,9 @@ export async function create(fields: NewsletterEditableFields): Promise<void> {
 }
 
 export async function get(id: string): Promise<NewsletterRecord> {
+  if (!id) {
+    throw new Error('buttondown.newsletters.get() - id is required')
+  }
   return client.request<NewsletterRecord>(VERBS.GET, RESOURCES.NEWSLETTERS, {
     resourcePath: id
   });
@@ -43,6 +46,9 @@ export async function put(
   id: string,
   fields: NewsletterRecord
 ): Promise<NewsletterRecord> {
+  if (!id) {
+    throw new Error('buttondown.newsletters.put() - id is required')
+  }
   validatePresence(
     fields,
     REQUIRED_FIELDS,
@@ -58,6 +64,9 @@ export async function patch(
   id: string,
   fields: Partial<NewsletterRecord>
 ): Promise<NewsletterRecord> {
+  if (!id) {
+    throw new Error('buttondown.newsletters.patch() - id is required')
+  }
   validateNonEmptyObject(
     fields,
     "buttondown.newsletters.patch() - can't patch newsletter to {}"

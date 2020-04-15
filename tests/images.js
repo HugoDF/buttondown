@@ -149,6 +149,17 @@ test.failing('images.get() - 200', async (t) => {
   t.deepEqual(await buttondown.images.get('email-id'), emailGetResponse);
 });
 
+test('images.get() - missing id', async (t) => {
+  const error = await t.throwsAsync(async () => {
+    await buttondown.images.get()
+  });
+
+  t.is(error.message, 'buttondown.images.get() - id is required')
+  t.is(error.url, undefined);
+  t.is(error.method, undefined);
+  t.is(error.payload, undefined);
+});
+
 test.failing('images.get() - 404', async (t) => {
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/images/email-id')
