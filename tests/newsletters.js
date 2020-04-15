@@ -198,7 +198,7 @@ test('newsletters.get() - 404', async (t) => {
 
 const newsletterPut = {
   ...newsletterCreate
-}
+};
 
 test('newsletters.put() - 200', async (t) => {
   const emailPutResponse = {
