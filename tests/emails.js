@@ -118,7 +118,7 @@ test('emails.create() - missing subject', async (t) => {
   });
   t.is(
     error.message,
-    'buttondown.email.create() - body and subject are required'
+    'buttondown.emails.create() - body and subject are required'
   );
   t.is(error.url, undefined);
   t.is(error.method, undefined);
@@ -134,7 +134,7 @@ test('emails.create() - missing body', async (t) => {
   });
   t.is(
     error.message,
-    'buttondown.email.create() - body and subject are required'
+    'buttondown.emails.create() - body and subject are required'
   );
   t.is(error.url, undefined);
   t.is(error.method, undefined);
