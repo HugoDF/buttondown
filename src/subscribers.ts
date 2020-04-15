@@ -30,6 +30,13 @@ interface SubscriberRecord extends SubscriberCreateFields {
   readonly utm_source: string;
 }
 
+interface ViewSetResponse<T> {
+  readonly results: T[];
+  readonly next: string;
+  readonly prev: string;
+  readonly count: number;
+}
+
 type SubscriberList = SubscriberRecord[];
 
 const REQUIRED_FIELDS = ['email'];
@@ -38,12 +45,13 @@ export async function list(
   page = 1,
   query: SubscriberQueryFilters = {}
 ): Promise<SubscriberList> {
-  return client.request<SubscriberList>(VERBS.GET, RESOURCES.SUBSCRIBERS, {
+  const { results } = await client.request<ViewSetResponse<SubscriberRecord>>(VERBS.GET, RESOURCES.SUBSCRIBERS, {
     query: {
       ...query,
       page
     }
   });
+  return results;
 }
 
 export async function create(fields: SubscriberCreateFields): Promise<void> {
