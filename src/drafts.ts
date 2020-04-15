@@ -1,4 +1,5 @@
 import client, {VERBS, RESOURCES} from './lib/client';
+import {ViewSetResponse} from './lib/types';
 
 interface DraftEditableFields {
   readonly subject?: string;
@@ -14,9 +15,10 @@ interface DraftRecord extends DraftEditableFields {
 type DraftList = DraftRecord[];
 
 export async function list(page = 1): Promise<DraftList> {
-  return client.request<DraftList>(VERBS.GET, RESOURCES.DRAFTS, {
+  const {results} = await client.request<ViewSetResponse<DraftRecord>>(VERBS.GET, RESOURCES.DRAFTS, {
     query: {page}
   });
+  return results;
 }
 
 export async function create(fields: DraftEditableFields): Promise<void> {

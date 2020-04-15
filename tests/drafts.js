@@ -21,13 +21,18 @@ const draftsListPage1 = [
   }
 ];
 
+const draftsListPage1Response = {
+  results: draftsListPage1,
+  count: 1,
+}
+
 test('drafts.list() - no page - 200', async (t) => {
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/drafts')
     .query({
       page: 1
     })
-    .reply(200, draftsListPage1);
+    .reply(200, draftsListPage1Response);
 
   t.deepEqual(await buttondown.drafts.list(), draftsListPage1);
 });
@@ -38,7 +43,7 @@ test('drafts.list() - page 1 - 200', async (t) => {
     .query({
       page: 1
     })
-    .reply(200, draftsListPage1);
+    .reply(200, draftsListPage1Response);
   t.deepEqual(await buttondown.drafts.list(1), draftsListPage1);
 });
 
@@ -52,12 +57,16 @@ test('drafts.list() - page 2 - 200', async (t) => {
       modification_date: '2020-04'
     }
   ];
+  const draftsListPage2Response = {
+    results: draftsListPage2,
+    count: 1,
+  }
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/drafts')
     .query({
       page: 2
     })
-    .reply(200, draftsListPage2);
+    .reply(200, draftsListPage2Response);
   t.deepEqual(await buttondown.drafts.list(2), draftsListPage2);
 });
 
@@ -67,7 +76,7 @@ test('drafts.list() - 401 - error', async (t) => {
     .query({
       page: 1
     })
-    .reply(401, draftsListPage1);
+    .reply(401, {});
 
   const error = await t.throwsAsync(async () => {
     await buttondown.drafts.list();
