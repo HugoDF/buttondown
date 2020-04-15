@@ -185,10 +185,10 @@ test('newsletters.get() - 200', async (t) => {
 
 test('newsletters.get() - missing id', async (t) => {
   const error = await t.throwsAsync(async () => {
-    await buttondown.newsletters.get()
+    await buttondown.newsletters.get();
   });
 
-  t.is(error.message, 'buttondown.newsletters.get() - id is required')
+  t.is(error.message, 'buttondown.newsletters.get() - id is required');
   t.is(error.url, undefined);
   t.is(error.method, undefined);
   t.is(error.payload, undefined);
@@ -230,10 +230,10 @@ test('newsletters.put() - 200', async (t) => {
 
 test('newsletters.put() - missing id', async (t) => {
   const error = await t.throwsAsync(async () => {
-    await buttondown.newsletters.put()
+    await buttondown.newsletters.put();
   });
 
-  t.is(error.message, 'buttondown.newsletters.put() - id is required')
+  t.is(error.message, 'buttondown.newsletters.put() - id is required');
   t.is(error.url, undefined);
   t.is(error.method, undefined);
   t.is(error.payload, undefined);
@@ -326,10 +326,10 @@ test('newsletters.patch() - 200', async (t) => {
 
 test('newsletters.patch() - missing id', async (t) => {
   const error = await t.throwsAsync(async () => {
-    await buttondown.newsletters.patch()
+    await buttondown.newsletters.patch();
   });
 
-  t.is(error.message, 'buttondown.newsletters.patch() - id is required')
+  t.is(error.message, 'buttondown.newsletters.patch() - id is required');
   t.is(error.url, undefined);
   t.is(error.method, undefined);
   t.is(error.payload, undefined);

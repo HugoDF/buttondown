@@ -36,8 +36,9 @@ export async function create(fields: ImageCreateFields): Promise<void> {
 
 export async function get(id: string): Promise<ImageRecord> {
   if (!id) {
-    throw new Error('buttondown.images.get() - id is required')
+    throw new Error('buttondown.images.get() - id is required');
   }
+
   return client.notImplemented<ImageRecord>(VERBS.GET, RESOURCES.IMAGES, {
     resourcePath: id
   });

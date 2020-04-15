@@ -151,10 +151,10 @@ test.failing('images.get() - 200', async (t) => {
 
 test('images.get() - missing id', async (t) => {
   const error = await t.throwsAsync(async () => {
-    await buttondown.images.get()
+    await buttondown.images.get();
   });
 
-  t.is(error.message, 'buttondown.images.get() - id is required')
+  t.is(error.message, 'buttondown.images.get() - id is required');
   t.is(error.url, undefined);
   t.is(error.method, undefined);
   t.is(error.payload, undefined);

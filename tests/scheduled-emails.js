@@ -205,10 +205,10 @@ test('scheduledEmails.get() - 200', async (t) => {
 
 test('scheduledEmails.get() - missing id', async (t) => {
   const error = await t.throwsAsync(async () => {
-    await buttondown.scheduledEmails.get()
+    await buttondown.scheduledEmails.get();
   });
 
-  t.is(error.message, 'buttondown.scheduled-emails.get() - id is required')
+  t.is(error.message, 'buttondown.scheduled-emails.get() - id is required');
   t.is(error.url, undefined);
   t.is(error.method, undefined);
   t.is(error.payload, undefined);
