@@ -25,7 +25,15 @@ jobs:
       run: yarn lint
       env:
         CI: true
-    - name: build & test
-      run: yarn build && yarn test
+    - name: build
+      run: yarn build && yarn test:unit
+      env:
+        CI: true
+    - name: unit tests
+      run: yarn test:unit
+      env:
+        CI: true
+    - name: E2E tests
+      run: yarn test:e2e
       env:
         CI: true

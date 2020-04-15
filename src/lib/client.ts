@@ -69,7 +69,7 @@ export class Client {
   setApiKey(apiKey: string): void {
     this.apiKey = apiKey;
 
-    if (apiKey.length === 0) {
+    if (!apiKey) {
       console.warn(`API key is empty.`);
     }
   }

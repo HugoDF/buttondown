@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import client, {VERBS, RESOURCES} from './lib/client';
 import {validateNonEmptyObject, validatePresence} from './lib/validate';
+import {ViewSetResponse} from './lib/types';
 
 interface SubscriberCreateFields {
   readonly email: string;
@@ -28,13 +29,6 @@ interface SubscriberRecord extends SubscriberCreateFields {
   readonly utm_campaign: string;
   readonly utm_medium: string;
   readonly utm_source: string;
-}
-
-interface ViewSetResponse<T> {
-  readonly results: T[];
-  readonly next: string;
-  readonly prev: string;
-  readonly count: number;
 }
 
 type SubscriberList = SubscriberRecord[];
