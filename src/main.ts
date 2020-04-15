@@ -5,8 +5,8 @@ import * as emails from './emails';
 import * as images from './images';
 import * as newsletters from './newsletters';
 import * as scheduledEmails from './scheduled-emails';
-// Import * as subscribers from './subscribers';
-// import * as tags from './tags';
+import * as subscribers from './subscribers';
+// Import * as tags from './tags';
 // import * as unsubscribers from './unsubscribers';
 
 export default {
@@ -21,8 +21,8 @@ export default {
   images,
   newsletters,
   ping,
-  scheduledEmails
-  // Subscribers,
-  // tags,
+  scheduledEmails,
+  subscribers
+  // Tags,
   // unsubscribers
 };
