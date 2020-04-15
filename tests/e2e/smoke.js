@@ -4,6 +4,14 @@ const buttondown = require('../../dist/main');
 
 buttondown.setApiKey(process.env.TEST_BUTTONDOWN_API_KEY);
 
+test('drafts.list()', async (t) => {
+  if (!process.env.TEST_BUTTONDOWN_API_KEY)
+    return t.pass('No API key, skipping integration test');
+  const drafts = await buttondown.drafts.list();
+  t.true(Array.isArray(drafts));
+  // Could check length but drafts tend to change pretty often...
+});
+
 test('emails.list() & emails.get()', async (t) => {
   if (!process.env.TEST_BUTTONDOWN_API_KEY)
     return t.pass('No API key, skipping integration test');
@@ -16,11 +24,16 @@ test('emails.list() & emails.get()', async (t) => {
   t.snapshot(Object.keys(email));
 });
 
-test('drafts.list()', async (t) => {
+test.failing('newsletters.list & newsletters.get()', async (t) => {
   if (!process.env.TEST_BUTTONDOWN_API_KEY)
     return t.pass('No API key, skipping integration test');
-  const drafts = await buttondown.drafts.list();
-  t.true(Array.isArray(drafts));
+  const newsletters = await buttondown.newsletters.list();
+  t.true(Array.isArray(newsletters));
+  t.true(newsletters.length > 0);
+
+  const id = newsletters[0].id;
+  const newsletter = await buttondown.newsletters.get(id);
+  t.snapshot(Object.keys(newsletter));
 });
 
 test('ping()', async (t) => {
