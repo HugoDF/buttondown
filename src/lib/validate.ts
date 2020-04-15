@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import {HTTPPayload} from './types';
 
 export function validatePresence(
   fields: HTTPPayload,
-  requiredFields: string[],
+  requiredFields: readonly string[],
   errorMessage: string
 ): void {
   if (requiredFields.find((f) => !fields[f])) {
@@ -10,7 +11,7 @@ export function validatePresence(
   }
 }
 
-export function validateNonEmptyObj(
+export function validateNonEmptyObject(
   fields: HTTPPayload,
   errorMessage: string
 ): void {

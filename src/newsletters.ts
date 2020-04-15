@@ -1,5 +1,5 @@
 import client, {VERBS, RESOURCES} from './lib/client';
-import {validateNonEmptyObj, validatePresence} from './lib/validate';
+import {validateNonEmptyObject, validatePresence} from './lib/validate';
 
 interface NewsletterEditableFields {
   readonly username: string;
@@ -51,7 +51,7 @@ export async function patch(
   id: string,
   fields: Partial<NewsletterRecord>
 ): Promise<NewsletterRecord> {
-  validateNonEmptyObj(
+  validateNonEmptyObject(
     fields,
     "buttondown.newsletters.patch() - can't set newsletter to {}"
   );
