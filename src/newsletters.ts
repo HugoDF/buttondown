@@ -17,17 +17,24 @@ interface NewsletterRecord extends NewsletterEditableFields {
 type NewsletterList = NewsletterRecord[];
 
 export async function list(page = 1): Promise<NewsletterList> {
-  return client.request<NewsletterList>(VERBS.GET, RESOURCES.DRAFTS, {
+  return client.request<NewsletterList>(VERBS.GET, RESOURCES.NEWSLETTERS, {
     query: {page}
   });
 }
 
 export async function create(fields: NewsletterEditableFields): Promise<void> {
-  return client.request<void>(VERBS.POST, RESOURCES.DRAFTS, {payload: fields});
+  validatePresence(
+    fields,
+    REQUIRED_FIELDS,
+    'buttondown.newsletters.create() - username, name and description are required'
+  );
+  return client.request<void>(VERBS.POST, RESOURCES.NEWSLETTERS, {
+    payload: fields
+  });
 }
 
 export async function get(id: string): Promise<NewsletterRecord> {
-  return client.request<NewsletterRecord>(VERBS.GET, RESOURCES.DRAFTS, {
+  return client.request<NewsletterRecord>(VERBS.GET, RESOURCES.NEWSLETTERS, {
     resourcePath: id
   });
 }
@@ -41,7 +48,7 @@ export async function put(
     REQUIRED_FIELDS,
     'buttondown.newsletters.put() - username, name and description are required'
   );
-  return client.request<NewsletterRecord>(VERBS.PUT, RESOURCES.DRAFTS, {
+  return client.request<NewsletterRecord>(VERBS.PUT, RESOURCES.NEWSLETTERS, {
     resourcePath: id,
     payload: fields
   });
@@ -53,9 +60,9 @@ export async function patch(
 ): Promise<NewsletterRecord> {
   validateNonEmptyObject(
     fields,
-    "buttondown.newsletters.patch() - can't set newsletter to {}"
+    "buttondown.newsletters.patch() - can't patch newsletter to {}"
   );
-  return client.request<NewsletterRecord>(VERBS.PATCH, RESOURCES.DRAFTS, {
+  return client.request<NewsletterRecord>(VERBS.PATCH, RESOURCES.NEWSLETTERS, {
     resourcePath: id,
     payload: fields
   });
