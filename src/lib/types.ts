@@ -20,6 +20,13 @@ export interface ClientPayload {
   readonly version?: Versions;
 }
 
+export interface ViewSetResponse<T> {
+  readonly results: T[];
+  readonly next: string;
+  readonly prev: string;
+  readonly count: number;
+}
+
 export interface EmailCreateFields {
   readonly included_tags?: string[];
   readonly excluded_tags?: string[];

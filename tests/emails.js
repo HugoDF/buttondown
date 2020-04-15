@@ -24,13 +24,18 @@ const emailsListPage1 = [
   }
 ];
 
+const emailsListPage1Response = {
+  results: emailsListPage1,
+  count: 1
+};
+
 test('emails.list() - no page - 200', async (t) => {
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/emails')
     .query({
       page: 1
     })
-    .reply(200, emailsListPage1);
+    .reply(200, emailsListPage1Response);
 
   t.deepEqual(await buttondown.emails.list(), emailsListPage1);
 });
@@ -41,7 +46,7 @@ test('emails.list() - page 1 - 200', async (t) => {
     .query({
       page: 1
     })
-    .reply(200, emailsListPage1);
+    .reply(200, emailsListPage1Response);
   t.deepEqual(await buttondown.emails.list(1), emailsListPage1);
 });
 
@@ -58,12 +63,16 @@ test('emails.list() - page 2 - 200', async (t) => {
       publish_date: '2020-04'
     }
   ];
+  const emailsListPage2Response = {
+    results: emailsListPage2,
+    count: 1
+  };
   nock('https://api.buttondown.email', nockOptions)
     .get('/v1/emails')
     .query({
       page: 2
     })
-    .reply(200, emailsListPage2);
+    .reply(200, emailsListPage2Response);
   t.deepEqual(await buttondown.emails.list(2), emailsListPage2);
 });
 
@@ -73,7 +82,7 @@ test('emails.list() - 401 - error', async (t) => {
     .query({
       page: 1
     })
-    .reply(401, emailsListPage1);
+    .reply(401, emailsListPage1Response);
 
   const error = await t.throwsAsync(async () => {
     await buttondown.emails.list();
