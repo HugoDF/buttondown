@@ -7,6 +7,15 @@ test('subscribers.create()/.get()/.list(page, filterByEmail)/.remove()', async (
   if (!process.env.TEST_BUTTONDOWN_API_KEY)
     return t.pass('No API key, skipping integration test');
 
+  const [existingSubscriber] = await buttondown.subscribers.list(1, {
+    email: 'hugo+test@codewithhugo.com'
+  });
+  if (existingSubscriber) {
+    await buttondown.subscribers.remove(existingSubscriber.id, {
+      email: 'hugo+test@codewithhugo.com'
+    });
+  }
+
   // Create new subscriber
   const createdSubscriber = await buttondown.subscribers.create({
     email: 'hugo+test@codewithhugo.com'
