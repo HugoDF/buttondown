@@ -19,7 +19,7 @@
     "watch": "microbundle watch --define PKG_VERSION=$npm_package_version",
     "test": "ava",
     "test:unit": "ava tests/*.js",
-    "test:e2e:smoke": "ava tests/e2e/smoke.js",
+    "test:smoke": "ava tests/e2e/smoke.js",
     "pretest:e2e": "echo '⚠️  Full E2E suite includes tests that add/remove new data'",
     "test:e2e": "ava tests/e2e/*.js",
     "lint": "xo src tests",

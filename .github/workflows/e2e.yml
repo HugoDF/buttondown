@@ -24,8 +24,8 @@ jobs:
       run: yarn
       env:
         CI: true
-    - name: build & E2E tests
-      run: yarn build && yarn test:e2e:smoke
+    - name: build & E2E Smoke tests
+      run: yarn build && yarn test:smoke
       env:
         CI: true
         TEST_BUTTONDOWN_API_KEY: ${{ secrets.TEST_BUTTONDOWN_API_KEY }}

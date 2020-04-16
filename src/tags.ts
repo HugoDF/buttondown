@@ -77,7 +77,7 @@ export async function patch(
 
   validateNonEmptyObject(
     fields,
-    "buttondown.tags.patch() - can't patch subscriber to {}"
+    "buttondown.tags.patch() - can't patch tag to {}"
   );
   return client.request<TagRecord>(VERBS.PATCH, RESOURCES.TAGS, {
     resourcePath: id,
