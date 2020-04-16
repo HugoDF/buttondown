@@ -30,10 +30,10 @@ test('tags.create() - missing name', async (t) => {
 
 test('tags.create() - 400', async (t) => {
   nock('https://api.buttondown.email', nockOptions)
-    .post('/v1/tags', { name: 'tag' })
+    .post('/v1/tags', {name: 'tag'})
     .reply(400, {});
   const error = await t.throwsAsync(async () => {
-    await buttondown.tags.create({ name: 'tag' });
+    await buttondown.tags.create({name: 'tag'});
   });
   t.is(error.message, 'Response code 400 (Bad Request)');
   t.is(error.url, 'https://api.buttondown.email/v1/tags');
@@ -104,10 +104,7 @@ test('tags.patch() - empty payload', async (t) => {
   const error = await t.throwsAsync(async () => {
     await buttondown.tags.patch('tag-id', {});
   });
-  t.is(
-    error.message,
-    "buttondown.tags.patch() - can't patch tag to {}"
-  );
+  t.is(error.message, "buttondown.tags.patch() - can't patch tag to {}");
   t.is(error.url, undefined);
   t.is(error.method, undefined);
   t.is(error.payload, undefined);
