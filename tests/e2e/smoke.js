@@ -26,7 +26,7 @@ test('emails.list() & emails.get()', async (t) => {
 
 test.failing('newsletters.list & newsletters.get()', async (t) => {
   if (!process.env.TEST_BUTTONDOWN_API_KEY)
-    return t.pass('No API key, skipping integration test');
+    return t.fail('No API key, skipping integration test');
   const newsletters = await buttondown.newsletters.list();
   t.true(Array.isArray(newsletters));
   t.true(newsletters.length > 0);
@@ -52,4 +52,44 @@ test('subscribers.list() & subscribers.get()', async (t) => {
   const id = subscribers[0].id;
   const subscriber = await buttondown.subscribers.get(id);
   t.snapshot(Object.keys(subscriber));
+});
+
+test('subscribers.create() + subscribers.remove() + subscribers.list() email filtering', async (t) => {
+  if (!process.env.TEST_BUTTONDOWN_API_KEY)
+    return t.pass('No API key, skipping integration test');
+
+  // Create new subscriber
+  const createdSubscriber = await buttondown.subscribers.create({
+    email: 'hugo+test@codewithhugo.com'
+  });
+
+  // Check new subscriber appears in get() and filtered list()
+  const [subscriber, filteredSubscribers] = await Promise.all([
+    buttondown.subscribers.get(createdSubscriber.id),
+    buttondown.subscribers.list(1, {
+      email: 'hugo+test@codewithhugo.com'
+    })
+  ]);
+
+  t.deepEqual(createdSubscriber, subscriber);
+  t.deepEqual([createdSubscriber], filteredSubscribers);
+
+  // Delete new subscriber
+  await buttondown.subscribers.remove(createdSubscriber.id, {
+    email: 'hugo+test@codewithhugo.com'
+  });
+
+  // Check deleted subscriber has stopped appearing
+  const error = await t.throwsAsync(async () => {
+    await buttondown.subscribers.get(createdSubscriber.id);
+  });
+
+  t.is(error.message, 'Response code 404 (Not Found)');
+
+  t.deepEqual(
+    await buttondown.subscribers.list(1, {
+      email: 'hugo+test@codewithhugo.com'
+    }),
+    []
+  );
 });

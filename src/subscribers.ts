@@ -18,6 +18,12 @@ interface SubscriberQueryFilters {
   readonly tag?: string;
 }
 
+interface SubscribersDeleteQueryFilters extends SubscriberQueryFilters {
+  readonly notes?: string;
+  readonly tags?: string[];
+  readonly referrer_url?: string;
+}
+
 interface SubscriberRecord extends SubscriberCreateFields {
   readonly creation_date: string;
   readonly id: string;
@@ -107,5 +113,31 @@ export async function patch(
   return client.request<SubscriberRecord>(VERBS.PATCH, RESOURCES.SUBSCRIBERS, {
     resourcePath: id,
     payload: fields
+  });
+}
+
+export async function remove(
+  id: string,
+  filters: SubscribersDeleteQueryFilters = {}
+): Promise<void> {
+  if (!id) {
+    throw new Error('buttondown.subscribers.remove() - id is required');
+  }
+
+  validatePresence(
+    filters,
+    REQUIRED_FIELDS,
+    'buttondown.subscribers.remove() - email is required'
+  );
+
+  const query: Record<string, any> = {...filters};
+  // Tags are expected as comma separated
+  if (filters.tags) {
+    query.tags = filters.tags.join(',');
+  }
+
+  return client.request<void>(VERBS.DELETE, RESOURCES.SUBSCRIBERS, {
+    resourcePath: id,
+    query
   });
 }

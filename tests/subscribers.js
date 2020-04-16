@@ -165,11 +165,12 @@ test('subscribers.create() - 400', async (t) => {
 test('subscribers.get() - 200', async (t) => {
   const subscriberGetResponse = {
     creation_date: '2020-04',
+    email: 'hugo+test@codewithhugo.com',
     id: 'some-id',
     metadata: {},
     secondary_id: 1,
     subscriber_type: 'regular',
-    source: 'string',
+    source: 'api',
     tags: ['tag1', 'tag2'],
     utm_campaign: 'utm_campaign',
     utm_medium: 'utm_campaign',
@@ -331,4 +332,48 @@ test('subscribers.patch() - 400', async (t) => {
   t.is(error.url, 'https://api.buttondown.email/v1/subscribers/subscriber-id');
   t.is(error.method, 'PATCH');
   t.is(error.payload, subscriberPatch);
+});
+
+const subscriberDeleteQuery = {
+  email: 'hugo+test@codewithhugo.com'
+};
+
+test('subscribers.delete() - 200', async (t) => {
+  nock('https://api.buttondown.email', nockOptions)
+    .delete('/v1/subscribers/subscriber-id')
+    .query(subscriberDeleteQuery)
+    .reply(200, {});
+
+  await buttondown.subscribers.remove('subscriber-id', subscriberDeleteQuery);
+  t.pass();
+});
+
+test('subscribers.delete() - missing id', async (t) => {
+  const error = await t.throwsAsync(async () => {
+    await buttondown.subscribers.remove(null, subscriberDeleteQuery);
+  });
+  t.is(error.message, 'buttondown.subscribers.remove() - id is required');
+});
+
+test('subscribers.delete() - missing email in query', async (t) => {
+  const error = await t.throwsAsync(async () => {
+    await buttondown.subscribers.remove('subscriber-id', {});
+  });
+  t.is(error.message, 'buttondown.subscribers.remove() - email is required');
+});
+
+test('subscribers.delete() - 404', async (t) => {
+  nock('https://api.buttondown.email', nockOptions)
+    .delete('/v1/subscribers/subscriber-id')
+    .query(subscriberDeleteQuery)
+    .reply(404, {});
+
+  const error = await t.throwsAsync(async () => {
+    await buttondown.subscribers.remove('subscriber-id', subscriberDeleteQuery);
+  });
+  t.is(error.message, 'Response code 404 (Not Found)');
+  t.is(error.url, 'https://api.buttondown.email/v1/subscribers/subscriber-id');
+  t.is(error.method, 'DELETE');
+  t.deepEqual(error.query, subscriberDeleteQuery);
+  t.is(error.payload, undefined);
 });
