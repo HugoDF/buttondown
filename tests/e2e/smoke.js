@@ -1,6 +1,5 @@
 import test from 'ava';
-
-const buttondown = require('../../dist/main');
+import buttondown from '../../dist/main';
 
 buttondown.setApiKey(process.env.TEST_BUTTONDOWN_API_KEY);
 
@@ -54,42 +53,14 @@ test('subscribers.list() & subscribers.get()', async (t) => {
   t.snapshot(Object.keys(subscriber));
 });
 
-test('subscribers.create() + subscribers.remove() + subscribers.list() email filtering', async (t) => {
+test('tags.list() & tags.get()', async (t) => {
   if (!process.env.TEST_BUTTONDOWN_API_KEY)
     return t.pass('No API key, skipping integration test');
+  const tags = await buttondown.tags.list();
+  t.true(Array.isArray(tags));
+  t.true(tags.length > 0);
 
-  // Create new subscriber
-  const createdSubscriber = await buttondown.subscribers.create({
-    email: 'hugo+test@codewithhugo.com'
-  });
-
-  // Check new subscriber appears in get() and filtered list()
-  const [subscriber, filteredSubscribers] = await Promise.all([
-    buttondown.subscribers.get(createdSubscriber.id),
-    buttondown.subscribers.list(1, {
-      email: 'hugo+test@codewithhugo.com'
-    })
-  ]);
-
-  t.deepEqual(createdSubscriber, subscriber);
-  t.deepEqual([createdSubscriber], filteredSubscribers);
-
-  // Delete new subscriber
-  await buttondown.subscribers.remove(createdSubscriber.id, {
-    email: 'hugo+test@codewithhugo.com'
-  });
-
-  // Check deleted subscriber has stopped appearing
-  const error = await t.throwsAsync(async () => {
-    await buttondown.subscribers.get(createdSubscriber.id);
-  });
-
-  t.is(error.message, 'Response code 404 (Not Found)');
-
-  t.deepEqual(
-    await buttondown.subscribers.list(1, {
-      email: 'hugo+test@codewithhugo.com'
-    }),
-    []
-  );
+  const id = tags[0].id;
+  const tag = await buttondown.tags.get(id);
+  t.snapshot(Object.keys(tag));
 });
