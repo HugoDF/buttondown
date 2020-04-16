@@ -26,7 +26,7 @@ test('emails.list() & emails.get()', async (t) => {
 
 test.failing('newsletters.list & newsletters.get()', async (t) => {
   if (!process.env.TEST_BUTTONDOWN_API_KEY)
-    return t.pass('No API key, skipping integration test');
+    return t.fail('No API key, skipping integration test');
   const newsletters = await buttondown.newsletters.list();
   t.true(Array.isArray(newsletters));
   t.true(newsletters.length > 0);
@@ -52,4 +52,27 @@ test('subscribers.list() & subscribers.get()', async (t) => {
   const id = subscribers[0].id;
   const subscriber = await buttondown.subscribers.get(id);
   t.snapshot(Object.keys(subscriber));
+});
+
+test('subscribers.create() + subscribers.remove()', async (t) => {
+  if (!process.env.TEST_BUTTONDOWN_API_KEY)
+    return t.pass('No API key, skipping integration test');
+
+  const createdSubscriber = await buttondown.subscribers.create({
+    email: 'hugo+test@codewithhugo.com'
+  });
+
+  const subscriber = await buttondown.subscribers.get(createdSubscriber.id);
+
+  t.deepEqual(createdSubscriber, subscriber);
+
+  await buttondown.subscribers.remove(createdSubscriber.id, {
+    email: 'hugo+test@codewithhugo.com'
+  });
+
+  const error = await t.throwsAsync(async () => {
+    await buttondown.subscribers.get(createdSubscriber.id);
+  });
+
+  t.is(error.message, 'Response code 404 (Not Found)');
 });
