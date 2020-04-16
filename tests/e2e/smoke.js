@@ -64,3 +64,15 @@ test('tags.list() & tags.get()', async (t) => {
   const tag = await buttondown.tags.get(id);
   t.snapshot(Object.keys(tag));
 });
+
+test('unsubscribers.list() & unsubscribers.get()', async (t) => {
+  if (!process.env.TEST_BUTTONDOWN_API_KEY)
+    return t.pass('No API key, skipping integration test');
+  const unsubscribers = await buttondown.unsubscribers.list();
+  t.true(Array.isArray(unsubscribers));
+  t.true(unsubscribers.length > 0);
+
+  const id = unsubscribers[0].id;
+  const unsubscriber = await buttondown.unsubscribers.get(id);
+  t.snapshot(Object.keys(unsubscriber));
+});

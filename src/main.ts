@@ -7,7 +7,7 @@ import * as newsletters from './newsletters';
 import * as scheduledEmails from './scheduled-emails';
 import * as subscribers from './subscribers';
 import * as tags from './tags';
-// Import * as unsubscribers from './unsubscribers';
+import * as unsubscribers from './unsubscribers';
 
 export default {
   // Kinda just exporting for tests :shrug:
@@ -23,6 +23,6 @@ export default {
   ping,
   scheduledEmails,
   subscribers,
-  tags
-  // Unsubscribers
+  tags,
+  unsubscribers
 };
