@@ -24,7 +24,7 @@ interface SubscribersDeleteQueryFilters extends SubscriberQueryFilters {
   readonly referrer_url?: string;
 }
 
-interface SubscriberRecord extends SubscriberCreateFields {
+export interface SubscriberRecord extends SubscriberCreateFields {
   readonly creation_date: string;
   readonly id: string;
   readonly metadata?: Record<any, any>;
