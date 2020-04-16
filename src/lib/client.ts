@@ -5,10 +5,14 @@ import {HTTPVerb, ResourceName, Versions, ClientPayload} from './types';
 const BASE_URL = 'https://api.buttondown.email';
 const DEFAULT_VERSION = 'v1';
 const DEFAULT_TIMEOUT = 10000;
+
+// The following gets replaced by microbundle at build time,
+// using --define option.
+const PKG_VERSION = 'PKG_VERSION';
 const DEFAULT_HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
-  'User-Agent': 'buttondown;nodejs'
+  'User-Agent': `buttondown/${PKG_VERSION};nodejs`
 };
 
 function createUrl(

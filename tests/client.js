@@ -8,6 +8,7 @@
 import test from 'ava';
 import nock from 'nock';
 import got from 'got';
+import pkg from '../package.json';
 import {Client} from '../dist/main';
 
 const gotNoRetries = got.extend({retry: 0});
@@ -18,7 +19,8 @@ nock.disableNetConnect();
 
 const nockOptions = {
   reqheaders: {
-    Authorization: 'Token super-secret-api-key'
+    Authorization: 'Token super-secret-api-key',
+    'User-Agent': `buttondown/${pkg.version};nodejs`
   }
 };
 
