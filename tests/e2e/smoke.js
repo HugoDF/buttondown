@@ -54,7 +54,7 @@ test('subscribers.list() & subscribers.get()', async (t) => {
   t.snapshot(Object.keys(subscriber));
 });
 
-test('subscribers.create() + subscribers.remove()', async (t) => {
+test('subscribers.create() + subscribers.remove() + subscribers.list() email filtering', async (t) => {
   if (!process.env.TEST_BUTTONDOWN_API_KEY)
     return t.pass('No API key, skipping integration test');
 
@@ -75,4 +75,13 @@ test('subscribers.create() + subscribers.remove()', async (t) => {
   });
 
   t.is(error.message, 'Response code 404 (Not Found)');
+
+  t.is(
+    (
+      await buttondown.subscribers.list(1, {
+        email: 'hugo+test@codewithhugo.com'
+      })
+    ).length,
+    0
+  );
 });

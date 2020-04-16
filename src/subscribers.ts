@@ -121,13 +121,13 @@ export async function remove(
   filters: SubscribersDeleteQueryFilters = {}
 ): Promise<void> {
   if (!id) {
-    throw new Error('buttondown.subscribers.delete() - id is required');
+    throw new Error('buttondown.subscribers.remove() - id is required');
   }
 
   validatePresence(
     filters,
     REQUIRED_FIELDS,
-    'buttondown.subscribers.delete() - email is required'
+    'buttondown.subscribers.remove() - email is required'
   );
 
   const query: Record<string, any> = {...filters};
