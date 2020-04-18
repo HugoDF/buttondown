@@ -181,9 +181,25 @@ const emailId = 'some-uuid';
 buttondown.scheduledEmails.get(emailId);
 ```
 
-
 ## Subscribers
+
+- list
+- create
+- get
+- put
+- patch
+- remove
 
 ## Tags
 
+- list
+- create
+- get
+- put
+- patch
+- remove
+
 ## Unsubscribers
+
+- list
+- get
