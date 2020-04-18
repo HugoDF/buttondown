@@ -79,7 +79,7 @@ const draft = {
   body: '<strong>and easy to do from Node.js</strong>',
 };
 //ES6
-buttondow.drafts.create(draft)
+buttondown.drafts.create(draft)
   .then(() => {}, error => {
     console.error(error);
 
@@ -90,7 +90,7 @@ buttondow.drafts.create(draft)
 //ES8
 (async () => {
   try {
-    await buttondow.drafts.create(draft);
+    await buttondown.drafts.create(draft);
   } catch (error) {
     console.error(error);
 
