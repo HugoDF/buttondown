@@ -69,7 +69,7 @@ yarn add buttondown
 
 The following is the minimum needed code to create a new draft email. Use this example, and modify the `to` and `from` variables:
 
-For more complex use cases, please see [USE_CASES.md](https://github.com/sendgrid/sendgrid-nodejs/blob/master/docs/use-cases/README.md#email-use-cases).
+For more complex use cases, please see [USE_CASES.md](./USE_CASES.md).
 
 ```js
 const buttondown = require('buttondown');
@@ -79,7 +79,7 @@ const draft = {
   body: '<strong>and easy to do from Node.js</strong>',
 };
 //ES6
-buttondow.drafts.create(draft)
+buttondown.drafts.create(draft)
   .then(() => {}, error => {
     console.error(error);
 
@@ -90,7 +90,7 @@ buttondow.drafts.create(draft)
 //ES8
 (async () => {
   try {
-    await buttondow.drafts.create(draft);
+    await buttondown.drafts.create(draft);
   } catch (error) {
     console.error(error);
 
