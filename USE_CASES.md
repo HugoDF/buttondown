@@ -21,6 +21,8 @@ Drafts supports the following operations:
 - create
 - get
 
+For type information see [./src/drafts.ts](https://github.com/HugoDF/buttondown/blob/master/src/drafts.ts)
+
 ### drafts.list(): Get existing drafts
 
 drafts.list support a "page" parameter (defaults to 1) and responds with the list of drafts.
@@ -64,6 +66,8 @@ Emails support the following operations:
 - list
 - create
 - get
+
+For type information see [./src/emails.ts](https://github.com/HugoDF/buttondown/blob/master/src/emails.ts)
 
 ### emails.list(): Get existing emails
 
@@ -113,6 +117,8 @@ Newsletters support the following operations:
 - put
 - patch
 
+For type information see [./src/newsletters.ts](https://github.com/HugoDF/buttondown/blob/master/src/newsletters.ts)
+
 ### newsletters.list(): list existing newsletters
 
 List supports a page parameter (defaults to 1).
@@ -147,6 +153,8 @@ buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
 buttondown.ping();
 ```
 
+For type information see [./src/ping.ts](https://github.com/HugoDF/buttondown/blob/master/src/ping.ts)
+
 ## Scheduled Emails
 
 Scheduled Emails support the following operations:
@@ -154,6 +162,8 @@ Scheduled Emails support the following operations:
 - list: get scheduled emails by page
 - create: create a new scheduled email
 - get: get a single scheduled email by id
+
+For type information see [./src/scheduled-emails.ts](https://github.com/HugoDF/buttondown/blob/master/src/scheduled-emails.ts).
 
 ### scheduledEmails.create(): Create a new email
 
@@ -191,6 +201,8 @@ Subscribers support the following operations:
 - put
 - patch
 - remove
+
+For type information see [./src/subscribers.ts](https://github.com/HugoDF/buttondown/blob/master/src/subscribers.ts)
 
 ### subscribers.list(): list existing subscribers
 
@@ -293,6 +305,8 @@ Tags support the following operations:
 - patch
 - remove
 
+For type information see [./src/tags.ts](https://github.com/HugoDF/buttondown/blob/master/src/tags.ts)
+
 
 ### tags.list(): list existing tags
 
@@ -381,6 +395,8 @@ Unsubscribers support the following operations:
 
 - list
 - get
+
+For type information see [./src/unsubscribers.ts](https://github.com/HugoDF/buttondown/blob/master/src/unsubscribers.ts)
 
 
 ### unsubscribers.list(): Get existing unsubscribers
