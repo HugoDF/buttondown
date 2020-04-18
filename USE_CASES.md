@@ -17,9 +17,9 @@ This documentation provides examples for specific Buttondown v1 API use cases in
 
 Drafts supports the following operations:
 
-- list: get drafts by page
-- create: create a new draft
-- get: get a single draft by id
+- list
+- create
+- get
 
 ### drafts.list(): Get existing drafts
 
@@ -61,9 +61,9 @@ buttondown.drafts.get(draftId);
 
 Emails support the following operations:
 
-- list: get emails by page
-- create: create a new email
-- get: get a single email by id
+- list
+- create
+- get
 
 ### emails.list(): Get existing emails
 
@@ -107,11 +107,11 @@ buttondown.emails.get(emailId);
 
 Newsletters support the following operations:
 
-- list: list existing newsletters
-- create: create a new newsletter
-- get: get an existing newsletter
-- put: replace a complete newsletter
-- patch: update part of a newsletter
+- list
+- create
+- get
+- put
+- patch
 
 ### newsletters.list(): list existing newsletters
 
@@ -183,15 +183,109 @@ buttondown.scheduledEmails.get(emailId);
 
 ## Subscribers
 
+Subscribers support the following operations:
+
 - list
 - create
 - get
 - put
 - patch
 - remove
+
+### subscribers.list(): list existing subscribers
+
+List supports a page parameter (defaults to 1) and a query object to filter by that supports the following fields:
+
+- type (SubscriberType), one of 'regular' | 'unactivated' | 'unpaid' | 'removed'
+- email, string
+- tag, string
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.subscribers.list(2, {
+  type: 'unactivated',
+  email: 'user-email@example.tld',
+  tag: 'latest',
+});
+```
+
+### subscribers.create(): create a new subscriber
+
+Create a new subscriber, pass an object containing:
+
+- "email" **required**, string.
+- notes, string
+- referrer_url, string
+- tags, array of string (TS `string[]`);
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.subscribers.create({
+  email: 'user-email@example.tld'
+});
+```
+
+### subscribers.get(): get an existing subscriber
+
+"id" is **required**.
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.subscribers.get('subscriber-id');
+```
+
+### subscribers.put(): replace a complete subscriber
+
+Supports 2 params:
+
+- id is **required**
+- subscriber to update to, must have an **email** value (supports same fields as `subscribers.create()`)
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.subscribers.put('subscriber-id', {
+  email: 'new-email'
+});
+```
+
+### subscribers.patch(): update part of a subscriber
+
+Supports 2 params:
+
+- id is **required**
+- subset of subscriber to update, must be non-empty (supports same fields as `subscribers.create()`)
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.subscribers.patch('subscriber-id', {
+  tags: ['new', 'tags']
+});
+```
+
+### subscribers.remove(): delete a subscriber
+
+Supports 2 params:
+
+- id is **required**
+- query object, in which the subscriber's email is **required**, also supports notes and tags array.
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.subscribers.remove('subscriber-id', {
+  email: 'subscriber@example.tld'
+});
+```
 
 ## Tags
 
+Tags support the following operations:
+
 - list
 - create
 - get
@@ -199,7 +293,112 @@ buttondown.scheduledEmails.get(emailId);
 - patch
 - remove
 
+
+### tags.list(): list existing tags
+
+List supports a page parameter (defaults to 1).
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.tags.list(2);
+```
+
+### tags.create(): create a new tag
+
+Create a new subscriber, pass an object containing:
+
+- name **required**, string.
+- color, string
+- description, string
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.tags.create({
+  name: 'super-awesome-tag'
+});
+```
+
+### tags.get(): get an existing tag
+
+"id" is **required**.
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.tags.get('tag-id');
+```
+
+### tags.put(): replace a complete tag
+
+Supports 2 params:
+
+- id is **required**
+- tags to update to, must have a **name** value (supports same fields as `tags.create()`)
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.tags.put('tag-id', {
+  name: 'super-awesome-tag'
+});
+```
+
+### tags.patch(): update part of a tag
+
+Supports 2 params:
+
+- id is **required**
+- subset of tag to update, must be non-empty (supports same fields as `tags.create()`)
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.tags.patch('tag-id', {
+  color: '#ffffff'
+});
+```
+
+### tags.remove(): delete a tag
+
+Supports 2 params:
+
+- id is **required**
+- query object, in which the tag's name is **required**, also supports color and description.
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.tags.remove('tag-id', {
+  name: 'super-awesome-tag'
+});
+```
+
 ## Unsubscribers
+
+Unsubscribers support the following operations:
 
 - list
 - get
+
+
+### unsubscribers.list(): Get existing unsubscribers
+
+`unsubscribers.list` support a "page" parameter (defaults to 1) and responds with the list of unsubscribers.
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.unsubscribers.list(1);
+```
+
+### unsubscribers.get(): Get a single existing unsubscriber
+
+`unsubscribers.get` gets a single unsubscribers by id (**required**).
+
+```js
+const buttondown = require('buttondown');
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.unsubscribers.get('unsubscriber-id');
+```
