@@ -50,7 +50,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "got": "^10.7.0"
+    "got": "^11.0.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
