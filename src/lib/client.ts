@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
 import got, {Got} from 'got';
 import {HTTPVerb, ResourceName, Versions, ClientPayload} from './types';
 
