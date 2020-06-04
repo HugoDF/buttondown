@@ -28,7 +28,7 @@ export async function create(fields: NewsletterEditableFields): Promise<void> {
     REQUIRED_FIELDS,
     'buttondown.newsletters.create() - username, name and description are required'
   );
-  return client.request<void>(VERBS.POST, RESOURCES.NEWSLETTERS, {
+  return client.request(VERBS.POST, RESOURCES.NEWSLETTERS, {
     payload: fields
   });
 }

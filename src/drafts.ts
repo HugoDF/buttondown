@@ -26,7 +26,7 @@ export async function list(page = 1): Promise<DraftList> {
 }
 
 export async function create(fields: DraftEditableFields): Promise<void> {
-  return client.request<void>(VERBS.POST, RESOURCES.DRAFTS, {payload: fields});
+  return client.request(VERBS.POST, RESOURCES.DRAFTS, {payload: fields});
 }
 
 export async function get(id: string): Promise<DraftRecord> {

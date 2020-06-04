@@ -9,7 +9,7 @@ import * as subscribers from './subscribers';
 import * as tags from './tags';
 import * as unsubscribers from './unsubscribers';
 
-export default {
+const buttondown = {
   // Kinda just exporting for tests :shrug:
   Client,
   // Alias from client instance
@@ -26,3 +26,5 @@ export default {
   tags,
   unsubscribers
 };
+
+export default buttondown;

@@ -99,7 +99,7 @@ export async function remove(
     'buttondown.tags.remove() - name is required'
   );
 
-  return client.request<void>(VERBS.DELETE, RESOURCES.TAGS, {
+  return client.request(VERBS.DELETE, RESOURCES.TAGS, {
     resourcePath: id,
     query: filters
   });

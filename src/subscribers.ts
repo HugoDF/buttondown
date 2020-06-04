@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import client, {VERBS, RESOURCES} from './lib/client';
 import {validateNonEmptyObject, validatePresence} from './lib/validate';
 import {ViewSetResponse} from './lib/types';
@@ -64,7 +63,7 @@ export async function create(fields: SubscriberCreateFields): Promise<void> {
     REQUIRED_FIELDS,
     'buttondown.subscribers.create() - email is required'
   );
-  return client.request<void>(VERBS.POST, RESOURCES.SUBSCRIBERS, {
+  return client.request(VERBS.POST, RESOURCES.SUBSCRIBERS, {
     payload: fields
   });
 }
@@ -136,7 +135,7 @@ export async function remove(
     query.tags = filters.tags.join(',');
   }
 
-  return client.request<void>(VERBS.DELETE, RESOURCES.SUBSCRIBERS, {
+  return client.request(VERBS.DELETE, RESOURCES.SUBSCRIBERS, {
     resourcePath: id,
     query
   });

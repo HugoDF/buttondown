@@ -19,7 +19,7 @@ export async function create(
     'buttondown.scheduled-emails.create() - body, subject and publish_date are required'
   );
 
-  return client.request<void>(VERBS.POST, RESOURCES.SCHEDULED_EMAILS, {
+  return client.request(VERBS.POST, RESOURCES.SCHEDULED_EMAILS, {
     payload: fields
   });
 }
