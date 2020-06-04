@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import {HTTPPayload} from './types';
 
 export function validatePresence(

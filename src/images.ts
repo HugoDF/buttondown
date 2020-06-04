@@ -29,7 +29,7 @@ export async function create(fields: ImageCreateFields): Promise<void> {
     'buttondown.image.create() - image is required'
   );
 
-  return client.notImplemented<void>(VERBS.POST, RESOURCES.IMAGES, {
+  return client.notImplemented(VERBS.POST, RESOURCES.IMAGES, {
     payload: fields
   });
 }

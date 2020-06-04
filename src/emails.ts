@@ -27,7 +27,7 @@ export async function create(fields: EmailCreateFields): Promise<void> {
     'buttondown.emails.create() - body and subject are required'
   );
 
-  return client.request<void>(VERBS.POST, RESOURCES.EMAILS, {payload: fields});
+  return client.request(VERBS.POST, RESOURCES.EMAILS, {payload: fields});
 }
 
 export async function get(id: string): Promise<EmailRecord> {
