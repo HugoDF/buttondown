@@ -1,6 +1,6 @@
 import test from 'ava';
 import nock from 'nock';
-import buttondown from '../dist/main';
+import buttondown from '../dist/main.js';
 buttondown.setApiKey('super-secret-api-key');
 
 const pingResponse = {};

@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import buttondown from '../../dist/main';
+import buttondown from '../../dist/main.js';
 buttondown.setApiKey(process.env.TEST_BUTTONDOWN_API_KEY);
 
 test('subscribers.create()/.get()/.list(page, filterByEmail)/.remove()', async (t) => {

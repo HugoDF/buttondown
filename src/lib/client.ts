@@ -110,6 +110,7 @@ export class Client {
       });
 
       return body as T;
+      // eslint-disable-next-line @typescript-eslint/no-implicit-any-catch
     } catch (error) {
       // Attach useful error information
       error.url = url;
