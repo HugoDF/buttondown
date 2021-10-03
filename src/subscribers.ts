@@ -4,9 +4,9 @@ import {ViewSetResponse} from './lib/types';
 
 interface SubscriberCreateFields {
   readonly email: string;
-  readonly notes: string;
-  readonly referrer_url: string;
-  readonly tags: string[];
+  readonly notes?: string;
+  readonly referrer_url?: string;
+  readonly tags?: string[];
 }
 
 type SubscriberType = 'regular' | 'unactivated' | 'unpaid' | 'removed';
