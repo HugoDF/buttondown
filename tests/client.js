@@ -9,7 +9,7 @@ import test from 'ava';
 import nock from 'nock';
 import got from 'got';
 import pkg from '../package.json';
-import {Client} from '../dist/main';
+import {Client} from '../dist/main.js';
 
 const gotNoRetries = got.extend({retry: 0});
 const client = new Client(gotNoRetries);

@@ -14,7 +14,7 @@ const buttondown = {
   Client,
   // Alias from client instance
   setApiKey(apiKey: string): void {
-    return client.setApiKey(apiKey);
+    client.setApiKey(apiKey);
   },
   drafts,
   emails,

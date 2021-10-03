@@ -5,7 +5,7 @@ export function validatePresence(
   requiredFields: readonly string[],
   errorMessage: string
 ): void {
-  if (requiredFields.find((f) => !fields[f])) {
+  if (requiredFields.some((f) => !fields[f])) {
     throw new Error(errorMessage);
   }
 }

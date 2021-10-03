@@ -1,5 +1,7 @@
 export type HTTPVerb = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 export type HTTPPayload = Record<string, any>;
+// Disable lint rule since it's a breaking change on types
+// eslint-disable-next-line unicorn/prevent-abbreviations
 export type HTTPSearchParams = Record<string, any>;
 export type ResourceName =
   | 'drafts'
