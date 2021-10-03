@@ -18,7 +18,7 @@
   "scripts": {
     "build": "microbundle --define PKG_VERSION=$npm_package_version",
     "watch": "microbundle watch --define PKG_VERSION=$npm_package_version",
-    "test": "yarn test:unit && yarn test:smoke",
+    "test": "yarn test:unit",
     "test:unit": "ava tests/*.js",
     "test:smoke": "ava tests/e2e/smoke.js",
     "pretest:e2e": "echo '⚠️  Full E2E suite includes tests that add/remove new data'",
