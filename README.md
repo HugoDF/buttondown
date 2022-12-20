@@ -73,7 +73,7 @@ For more complex use cases, please see [USE_CASES.md](./USE_CASES.md).
 
 ```js
 const buttondown = require('buttondown');
-buttodown.setApiKey(process.env.BUTTONDOWN_API_KEY);
+buttondown.setApiKey(process.env.BUTTONDOWN_API_KEY);
 const draft = {
   subject: 'Creating a new Buttondown draft',
   body: '<strong>and easy to do from Node.js</strong>',
